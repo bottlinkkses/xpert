@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Tiger Hack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dragon-red: #ff2d75;
+            --tiger-blue: #00c2ff;
+            --neon-purple: #b721ff;
+            --neon-green: #21d4fd;
+            --dark-bg: #0a0a1a;
+            --card-bg: rgba(30, 30, 60, 0.7);
+            --text-light: #ffffff;
+            --glow-intensity: 0.8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;700&display=swap');
+
+        body {
+            background: radial-gradient(circle at center, #0f0c29, #0a081f);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Glow Effects */
+        .glow {
+            animation: glow-pulse 2s infinite alternate;
+        }
+
+        @keyframes glow-pulse {
+            0% { filter: drop-shadow(0 0 5px currentColor); opacity: 0.7; }
+            100% { filter: drop-shadow(0 0 15px currentColor); opacity: 1; }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(145deg, #1e1e3c, #2a2a5a);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--neon-purple);
+            box-shadow: 0 0 20px rgba(183, 33, 255, 0.5);
+            transform: rotate(0deg);
+            transition: all 0.5s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(5deg);
+            box-shadow: 0 0 30px rgba(183, 33, 255, 0.8);
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, var(--dragon-red), var(--tiger-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 45, 117, 0.3);
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: rgba(20, 20, 50, 0.6);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(183, 33, 255, 0.3);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--dragon-red), var(--tiger-blue));
+        }
+
+        .winning-user {
+            font-size: 16px;
+            color: var(--tiger-blue);
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(0, 194, 255, 0.5);
+        }
+
+        .online-users {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+        }
+
+        /* Input Section */
+        .input-section {
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            text-shadow: 0 0 5px rgba(255,255,255,0.2);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            background: rgba(10, 10, 30, 0.7);
+            border: 1px solid rgba(183, 33, 255, 0.5);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(183, 33, 255, 0.2);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--tiger-blue);
+            box-shadow: 0 0 15px rgba(0, 194, 255, 0.5);
+        }
+
+        .input-field.error {
+            border-color: var(--dragon-red);
+            animation: shake 0.5s;
+            box-shadow: 0 0 15px rgba(255, 45, 117, 0.5);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .error-message {
+            color: var(--dragon-red);
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            text-shadow: 0 0 5px rgba(255, 45, 117, 0.5);
+        }
+
+        /* Result Section */
+        .result-container {
+            background: rgba(30, 30, 60, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(183, 33, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .result-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--dragon-red), var(--tiger-blue));
+            animation: borderGlow 3s infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .result-placeholder {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            text-shadow: 0 0 5px rgba(255,255,255,0.2);
+        }
+
+        .result-loading {
+            font-size: 20px;
+            color: var(--tiger-blue);
+            display: none;
+            font-weight: 500;
+        }
+
+        .result-final {
+            font-size: 28px;
+            font-weight: 700;
+            display: none;
+            animation: textGlow 1.5s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px currentColor; }
+            100% { text-shadow: 0 0 20px currentColor; }
+        }
+
+        .dragon-result {
+            color: var(--dragon-red);
+        }
+
+        .tiger-result {
+            color: var(--tiger-blue);
+        }
+
+        .result-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 16px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-bottom: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: all 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--neon-purple), var(--tiger-blue));
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 194, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 25px rgba(0, 194, 255, 0.6);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, var(--dragon-red), #ff5e62);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 45, 117, 0.4);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 8px 25px rgba(255, 45, 117, 0.6);
+        }
+
+        .btn-telegram {
+            background: linear-gradient(45deg, #0088cc, #00aced);
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 136, 204, 0.4);
+        }
+
+        .btn-telegram:hover {
+            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.6);
+        }
+
+        /* Server Status */
+        .server-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: var(--tiger-blue);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--tiger-blue);
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px var(--tiger-blue);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 194, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 194, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 194, 255, 0); }
+        }
+
+        /* Warning Text */
+        .warning-text {
+            color: #ffcc00;
+            font-size: 14px;
+            text-align: center;
+            margin: 25px 0;
+            padding: 15px;
+            background: rgba(255, 204, 0, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid #ffcc00;
+            line-height: 1.6;
+        }
+
+        /* Background Elements */
+        .bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+        }
+
+        .bg-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--dragon-red);
+            top: -100px;
+            left: -100px;
+            animation: float 15s infinite alternate;
+        }
+
+        .bg-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--tiger-blue);
+            bottom: -150px;
+            right: -100px;
+            animation: float 18s infinite alternate-reverse;
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 28px;
+            }
+            
+            .result-container {
+                padding: 20px;
+                min-height: 160px;
+            }
+            
+            .result-final {
+                font-size: 24px;
+            }
+            
+            .btn {
+                padding: 14px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-elements">
+        <div class="bg-element bg-1"></div>
+        <div class="bg-element bg-2"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <img src="logo18.png" alt="Dragon Tiger Logo">
+            </div>
+            <h1 class="title">DRAGON TIGER HACK</h1>
+            <p class="subtitle">Predict & Win Big</p>
+        </div>
+        
+        <!-- Stats Section -->
+        <div class="stats">
+            <div class="winning-user" id="winning-user"></div>
+            <div class="online-users" id="online-users"></div>
+        </div>
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label class="input-label"><i class="fas fa-dragon" style="color: var(--dragon-red); margin-right: 8px;"></i> Enter Dragon Cards</label>
+                <input type="text" class="input-field" id="dragon-cards" placeholder="Enter dragon cards here">
+                <div class="error-message" id="dragon-error">Please enter dragon cards</div>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label"><i class="fas fa-paw" style="color: var(--tiger-blue); margin-right: 8px;"></i> Enter Tiger Cards</label>
+                <input type="text" class="input-field" id="tiger-cards" placeholder="Enter tiger cards here">
+                <div class="error-message" id="tiger-error">Please enter tiger cards</div>
+            </div>
+        </div>
+        
+        <!-- Result Section -->
+        <div class="result-container">
+            <div class="server-status">
+                <div class="status-dot"></div>
+                <div class="status-text">SERVER CONNECTED</div>
+            </div>
+            
+            <div class="result-placeholder" id="result-placeholder">ENTER CARDS & PREDICT</div>
+            <div class="result-loading" id="result-loading">
+                <i class="fas fa-spinner fa-spin"></i> ANALYZING CARDS...
+            </div>
+            <div class="result-final" id="result-final">
+                <div class="result-icon" id="result-icon"></div>
+                <div id="result-text"></div>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary" id="start-btn">
+            <i class="fas fa-bolt" style="margin-right: 8px;"></i> PREDICT NOW
+        </button>
+        
+        <div class="warning-text">
+            <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i> Download Yono Game game by clicking on 'Download' button and create a new account in it, if you use this mod in your old account or in any other app then the mod will not work.
+            'Download' बटन पर क्लिक करके Yono Game डाउनलोड करें और उसमे एक नया अकाउंट बनाए, यदि आप इस मॉड का उपयोग अपने पुराने account में करते हैं यां किसी और ऐप में करते है तो मॉड काम नहीं करेगा।
+        </div>
+        
+        <button class="btn btn-danger" id="download-btn">
+            <i class="fas fa-download" style="margin-right: 8px;"></i> DOWNLOAD APP
+        </button>
+        
+        <button class="btn btn-telegram" id="telegram-btn">
+            <i class="fab fa-telegram" style="margin-right: 8px;"></i> JOIN TELEGRAM
+        </button>
+    </div>
+
+    <script>
+        // DOM Elements
+        const winningUserEl = document.getElementById('winning-user');
+        const onlineUsersEl = document.getElementById('online-users');
+        const startBtn = document.getElementById('start-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const telegramBtn = document.getElementById('telegram-btn');
+        const dragonCardsInput = document.getElementById('dragon-cards');
+        const tigerCardsInput = document.getElementById('tiger-cards');
+        const dragonError = document.getElementById('dragon-error');
+        const tigerError = document.getElementById('tiger-error');
+        const resultPlaceholder = document.getElementById('result-placeholder');
+        const resultLoading = document.getElementById('result-loading');
+        const resultFinal = document.getElementById('result-final');
+        const resultIcon = document.getElementById('result-icon');
+        const resultText = document.getElementById('result-text');
+        
+        // Function to open URL in external browser
+        function openInExternalBrowser(url) {
+            // Try using Android intent
+            if (typeof Android !== 'undefined' && Android.openInExternalBrowser) {
+                Android.openInExternalBrowser(url);
+            } 
+            // Fallback for other cases
+            else {
+                window.open(url, '_system');
+            }
+        }
+        
+        // Generate random number
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        // Update winning user
+        function updateRandomData() {
+            const firstPart = getRandom(620, 999);
+            const secondPart = getRandom(0, 999).toString().padStart(3, '0');
+            const amount = getRandom(500, 15000);
+            
+            winningUserEl.textContent = `User ${firstPart}****${secondPart} won ₹${amount.toLocaleString()}`;
+            onlineUsersEl.textContent = `${getRandom(500, 7000).toLocaleString()} players online`;
+        }
+        
+        // Reset result display
+        function resetResult() {
+            resultPlaceholder.style.display = 'block';
+            resultLoading.style.display = 'none';
+            resultFinal.style.display = 'none';
+        }
+        
+        // Show loading state
+        function showLoading() {
+            resultPlaceholder.style.display = 'none';
+            resultLoading.style.display = 'block';
+            resultFinal.style.display = 'none';
+        }
+        
+        // Show final result
+        function showResult(winner) {
+            resultPlaceholder.style.display = 'none';
+            resultLoading.style.display = 'none';
+            
+            // Set result content based on winner
+            if (winner === 'Dragon') {
+                resultIcon.innerHTML = '<i class="fas fa-dragon glow" style="color: var(--dragon-red);"></i>';
+                resultText.textContent = 'DRAGON WINS!';
+                resultFinal.className = 'result-final dragon-result';
+                
+                // Add dragon fire effect
+                const fire = document.createElement('div');
+                fire.innerHTML = '<div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: radial-gradient(circle at center, rgba(255,45,117,0.3) 0%, transparent 70%); z-index: -1;"></div>';
+                resultFinal.appendChild(fire);
+            } else {
+                resultIcon.innerHTML = '<i class="fas fa-paw glow" style="color: var(--tiger-blue);"></i>';
+                resultText.textContent = 'TIGER WINS!';
+                resultFinal.className = 'result-final tiger-result';
+                
+                // Add tiger stripes effect
+                const stripes = document.createElement('div');
+                stripes.innerHTML = '<div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: linear-gradient(135deg, rgba(0,194,255,0.1) 0%, transparent 20%, rgba(0,194,255,0.1) 40%, transparent 60%, rgba(0,194,255,0.1) 80%, transparent 100%); z-index: -1;"></div>';
+                resultFinal.appendChild(stripes);
+            }
+            
+            resultFinal.style.display = 'block';
+            
+            // Add confetti effect
+            setTimeout(() => {
+                const confettiSettings = {
+                    target: 'confetti-canvas',
+                    max: 150,
+                    size: 1.5,
+                    animate: true,
+                    props: ['circle', 'square', 'triangle', 'line'],
+                    colors: winner === 'Dragon' ? 
+                        [[255, 45, 117], [183, 33, 255], [255, 126, 95]] : 
+                        [[0, 194, 255], [33, 150, 255], [21, 212, 253]],
+                    clock: 25,
+                    rotate: true,
+                    start_from_edge: true,
+                    respawn: false
+                };
+                
+                const confetti = new ConfettiGenerator(confettiSettings);
+                confetti.render();
+                
+                setTimeout(() => {
+                    confetti.clear();
+                }, 3000);
+            }, 500);
+        }
+        
+        // Validate inputs
+        function validateInputs() {
+            let isValid = true;
+            
+            // Reset errors
+            dragonCardsInput.classList.remove('error');
+            tigerCardsInput.classList.remove('error');
+            dragonError.style.display = 'none';
+            tigerError.style.display = 'none';
+            
+            // Check dragon cards
+            if (!dragonCardsInput.value.trim()) {
+                dragonCardsInput.classList.add('error');
+                dragonError.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Check tiger cards
+            if (!tigerCardsInput.value.trim()) {
+                tigerCardsInput.classList.add('error');
+                tigerError.style.display = 'block';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // Initial update
+        updateRandomData();
+        
+        // Update every 2 seconds
+        setInterval(updateRandomData, 2000);
+        
+        // Start prediction
+        startBtn.addEventListener('click', () => {
+            // Validate inputs
+            if (!validateInputs()) return;
+            
+            // Disable button during process
+            startBtn.disabled = true;
+            
+            // Show loading state
+            resetResult();
+            showLoading();
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                // Determine random winner
+                const winner = Math.random() > 0.5 ? 'Dragon' : 'Tiger';
+                
+                // Show result
+                showResult(winner);
+                
+                // Re-enable button after short delay
+                setTimeout(() => {
+                    startBtn.disabled = false;
+                }, 2000);
+            }, 3000);
+        });
+        
+        // Button actions
+        downloadBtn.addEventListener('click', () => {
+            openInExternalBrowser('https://yonovip2.com?code=3CRYC2X845Z&t=1745427321');
+        });
+        
+        telegramBtn.addEventListener('click', () => {
+            openInExternalBrowser('https://t.me/EarningScripter1');
+        });
+        
+        // Initialize
+        resetResult();
+    </script>
+    
+    <!-- Confetti JS -->
+    <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+    <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; pointer-events: none;"></canvas>
+</body>
+</html>
