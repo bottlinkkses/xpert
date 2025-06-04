@@ -409,4 +409,85 @@
         // Game links remain as they were (opening in WebView)
     </script>
 </body>
+    <!-- Insert this here -->
+<div class="custom-dialog-backdrop" id="promoDialog">
+    <div class="custom-dialog-box">
+        <div class="custom-dialog-title">✨ New Hack Available!!! ✨</div>
+        <div class="custom-dialog-msg">Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>नीचे बटन पर क्लिक करें 👇</div>
+        <button class="custom-dialog-btn" onclick="window.location.href='https://t.me/Earningscripter1'">
+            <img src="https://telegram.org/img/t_logo.png" alt="Telegram Logo">
+            JOIN TELEGRAM
+        </button>
+    </div>
+</div>
+
+<style>
+    @keyframes glow-border {
+        0% { box-shadow: 0 0 5px red, 0 0 10px orange, 0 0 20px yellow, 0 0 30px green, 0 0 40px blue, 0 0 55px indigo, 0 0 70px violet; }
+        100% { box-shadow: 0 0 20px violet, 0 0 30px indigo, 0 0 40px blue, 0 0 50px green, 0 0 60px yellow, 0 0 70px orange, 0 0 80px red; }
+    }
+
+    .custom-dialog-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .custom-dialog-box {
+        background: linear-gradient(135deg, #1e1e1e, #111);
+        border-radius: 25px;
+        padding: 30px;
+        color: white;
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        border: 2px solid #00F7FF;
+        animation: glow-border 2s infinite alternate;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .custom-dialog-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #00F7FF;
+    }
+
+    .custom-dialog-msg {
+        font-size: 16px;
+        margin-bottom: 25px;
+        line-height: 1.6;
+        color: #e0e0e0;
+    }
+
+    .custom-dialog-btn {
+        background: linear-gradient(45deg, #00F7FF, #00E6FF);
+        color: #131A2A;
+        border: none;
+        padding: 12px 25px;
+        font-size: 18px;
+        border-radius: 30px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(0, 247, 255, 0.6);
+        transition: transform 0.3s;
+    }
+
+    .custom-dialog-btn:hover {
+        transform: scale(1.05);
+    }
+
+    .custom-dialog-btn img {
+        width: 24px;
+        height: 24px;
+    }
+</style>
+
 </html>
