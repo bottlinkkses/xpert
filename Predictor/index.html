@@ -409,94 +409,147 @@
         // Game links remain as they were (opening in WebView)
     </script>
 </body>
-    <!-- Insert this here -->
+    <!-- Insert this in your HTML where you want the popup -->
+
 <div class="custom-dialog-backdrop" id="promoDialog">
-    <div class="custom-dialog-box">
-        <div class="custom-dialog-title">✨ New Hack Available!!! ✨</div>
-        <div class="custom-dialog-msg">
-            Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>नीचे बटन पर क्लिक करें 👇
-        </div>
-        <button class="custom-dialog-btn" id="joinTelegramBtn">
-            <img src="https://telegram.org/img/t_logo.png" alt="Telegram Logo">
-            JOIN TELEGRAM
-        </button>
+  <div class="custom-dialog-box" id="step1">
+    <div class="custom-dialog-title">✨ New Hack Available!!! ✨</div>
+    <div class="custom-dialog-msg">
+      Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>
     </div>
+    <button class="custom-dialog-btn" id="joinTelegramBtn">
+      <img src="https://telegram.org/img/t_logo.png" alt="Telegram Logo" />
+      JOIN TELEGRAM
+    </button>
+  </div>
+
+  <div class="custom-dialog-box" id="step2" style="display:none;">
+    <div class="custom-dialog-msg" style="font-size: 20px; font-weight: bold; color: #00F7FF; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+      नीचे दिए गए username को telegram पर search करें। 👇
+    </div>
+    <div style="font-size: 26px; font-weight: 900; color: #00F7FF; user-select: text; display: flex; align-items: center; justify-content: center; gap: 10px;">
+      <span id="usernameText">@EarningScripter1</span>
+      <button id="copyBtn" title="Copy username" style="background:#00F7FF; border:none; border-radius:50%; width:35px; height:35px; cursor:pointer; font-weight:bold; color:#131A2A; box-shadow: 0 0 8px #00F7FF;">
+        📋
+      </button>
+    </div>
+    <button class="custom-dialog-btn" id="okBtnStep2" style="margin-top: 20px; width: 100%;">OK</button>
+  </div>
+
+  <div class="custom-dialog-box" id="step3" style="display:none;">
+    <div class="custom-dialog-msg" style="font-size:18px; margin-bottom: 20px; text-align: center;">
+      Success awaits for no one,<br>
+      Search <b>@EarningScripter1</b> on Telegram now and start earning! 🚀🔥
+    </div>
+    <button class="custom-dialog-btn" id="finalOkBtn" style="width: 100%;">Done</button>
+  </div>
 </div>
 
 <style>
-    @keyframes glow-border {
-        0% { box-shadow: 0 0 5px red, 0 0 10px orange, 0 0 20px yellow, 0 0 30px green, 0 0 40px blue, 0 0 55px indigo, 0 0 70px violet; }
-        100% { box-shadow: 0 0 20px violet, 0 0 30px indigo, 0 0 40px blue, 0 0 50px green, 0 0 60px yellow, 0 0 70px orange, 0 0 80px red; }
+  @keyframes glow-border {
+    0% {
+      box-shadow: 0 0 5px red, 0 0 10px orange, 0 0 20px yellow, 0 0 30px green, 0 0 40px blue,
+        0 0 55px indigo, 0 0 70px violet;
     }
+    100% {
+      box-shadow: 0 0 20px violet, 0 0 30px indigo, 0 0 40px blue, 0 0 50px green, 0 0 60px yellow,
+        0 0 70px orange, 0 0 80px red;
+    }
+  }
 
-    .custom-dialog-backdrop {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.85);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  .custom-dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+  }
 
-    .custom-dialog-box {
-        background: linear-gradient(135deg, #1e1e1e, #111);
-        border-radius: 25px;
-        padding: 30px;
-        color: white;
-        text-align: center;
-        width: 90%;
-        max-width: 400px;
-        border: 2px solid #00F7FF;
-        animation: glow-border 2s infinite alternate;
-        font-family: 'Arial', sans-serif;
-    }
+  .custom-dialog-box {
+    background: linear-gradient(135deg, #1e1e1e, #111);
+    border-radius: 25px;
+    padding: 30px;
+    color: white;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid #00f7ff;
+    animation: glow-border 2s infinite alternate;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box;
+  }
 
-    .custom-dialog-title {
-        font-size: 22px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #00F7FF;
-    }
+  .custom-dialog-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #00f7ff;
+  }
 
-    .custom-dialog-msg {
-        font-size: 16px;
-        margin-bottom: 25px;
-        line-height: 1.6;
-        color: #e0e0e0;
-    }
+  .custom-dialog-msg {
+    font-size: 16px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
 
-    .custom-dialog-btn {
-        background: linear-gradient(45deg, #00F7FF, #00E6FF);
-        color: #131A2A;
-        border: none;
-        padding: 12px 25px;
-        font-size: 18px;
-        border-radius: 30px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: bold;
-        box-shadow: 0 0 15px rgba(0, 247, 255, 0.6);
-        transition: transform 0.3s;
-    }
+  .custom-dialog-btn {
+    background: linear-gradient(45deg, #00f7ff, #00e6ff);
+    color: #131a2a;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0, 247, 255, 0.6);
+    transition: transform 0.3s;
+  }
 
-    .custom-dialog-btn:hover {
-        transform: scale(1.05);
-    }
+  .custom-dialog-btn:hover {
+    transform: scale(1.05);
+  }
 
-    .custom-dialog-btn img {
-        width: 24px;
-        height: 24px;
-    }
+  .custom-dialog-btn img {
+    width: 24px;
+    height: 24px;
+  }
 </style>
 
 <script>
-    document.getElementById('joinTelegramBtn').addEventListener('click', function() {
-        // Open Telegram link in new tab/window
-        window.open('https://telegram.me/Earningscripter1', '_blank');
+  // Step 1: Join Telegram button opens link in new tab
+  document.getElementById('joinTelegramBtn').addEventListener('click', function () {
+    window.open('https://telegram.me/Earningscripter1', '_blank');
+    // Show step 2, hide step 1
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+  });
+
+  // Copy username to clipboard
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    const username = document.getElementById('usernameText').innerText;
+    navigator.clipboard.writeText(username).then(() => {
+      alert('Username copied to clipboard!');
     });
+  });
+
+  // OK button step 2 to go step 3
+  document.getElementById('okBtnStep2').addEventListener('click', function () {
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('step3').style.display = 'block';
+  });
+
+  // Final Done button closes popup
+  document.getElementById('finalOkBtn').addEventListener('click', function () {
+    document.getElementById('promoDialog').style.display = 'none';
+  });
 </script>
+
 
 </html>
