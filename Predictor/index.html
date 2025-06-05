@@ -415,7 +415,7 @@
   <div class="custom-dialog-box" id="step1">
     <div class="custom-dialog-title">✨ New Hack Available!!! ✨</div>
     <div class="custom-dialog-msg">
-      Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>
+      Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>नीचे बटन पर क्लिक करें 👇
     </div>
     <button class="custom-dialog-btn" id="joinTelegramBtn">
       <img src="https://telegram.org/img/t_logo.png" alt="Telegram Logo" />
@@ -425,7 +425,7 @@
 
   <div class="custom-dialog-box" id="step2" style="display:none;">
     <div class="custom-dialog-msg" style="font-size: 20px; font-weight: bold; color: #00F7FF; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-      नीचे दिए गए username को telegram पर search करें। 👇
+      नीचे दिए गए username को telegram पर search करें।
     </div>
     <div style="font-size: 26px; font-weight: 900; color: #00F7FF; user-select: text; display: flex; align-items: center; justify-content: center; gap: 10px;">
       <span id="usernameText">@EarningScripter1</span>
@@ -446,6 +446,7 @@
 </div>
 
 <style>
+  /* Same CSS as before */
   @keyframes glow-border {
     0% {
       box-shadow: 0 0 5px red, 0 0 10px orange, 0 0 20px yellow, 0 0 30px green, 0 0 40px blue,
@@ -523,10 +524,9 @@
 </style>
 
 <script>
-  // Step 1: Join Telegram button opens link in new tab
+  // Step 1: Join Telegram button just changes steps, no link opening
   document.getElementById('joinTelegramBtn').addEventListener('click', function () {
-    window.open('https://telegram.me/Earningscripter1', '_blank');
-    // Show step 2, hide step 1
+    // No window.open here
     document.getElementById('step1').style.display = 'none';
     document.getElementById('step2').style.display = 'block';
   });
