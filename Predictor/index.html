@@ -409,44 +409,21 @@
         // Game links remain as they were (opening in WebView)
     </script>
 </body>
-    <!-- Insert this in your HTML where you want the popup -->
-
 <div class="custom-dialog-backdrop" id="promoDialog">
-  <div class="custom-dialog-box" id="step1">
+  <div class="custom-dialog-box">
     <div class="custom-dialog-title">✨ New Hack Available!!! ✨</div>
     <div class="custom-dialog-msg">
-      Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>नीचे बटन पर क्लिक करें 👇
-    </div>
+Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>नीचे बटन पर क्लिक करें 👇
+      </div>
     <button class="custom-dialog-btn" id="joinTelegramBtn">
       <img src="https://telegram.org/img/t_logo.png" alt="Telegram Logo" />
       JOIN TELEGRAM
     </button>
-  </div>
-
-  <div class="custom-dialog-box" id="step2" style="display:none;">
-    <div class="custom-dialog-msg" style="font-size: 20px; font-weight: bold; color: #00F7FF; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-      नीचे दिए गए username को telegram पर search करें। 👇
-    </div>
-    <div style="font-size: 26px; font-weight: 900; color: #00F7FF; user-select: text; display: flex; align-items: center; justify-content: center; gap: 10px;">
-      <span id="usernameText">@EarningScripter1</span>
-      <button id="copyBtn" title="Copy username" style="background:#00F7FF; border:none; border-radius:50%; width:35px; height:35px; cursor:pointer; font-weight:bold; color:#131A2A; box-shadow: 0 0 8px #00F7FF;">
-        📋
-      </button>
-    </div>
-    <button class="custom-dialog-btn" id="okBtnStep2" style="margin-top: 20px; width: 100%;">OK</button>
-  </div>
-
-  <div class="custom-dialog-box" id="step3" style="display:none;">
-    <div class="custom-dialog-msg" style="font-size:18px; margin-bottom: 20px; text-align: center;">
-      Success awaits for no one,<br>
-      Search <b>@EarningScripter1</b> on Telegram now and start earning! 🚀🔥
-    </div>
-    <button class="custom-dialog-btn" id="finalOkBtn" style="width: 100%;">Done</button>
+    <button class="custom-dialog-close-btn" id="closeDialogBtn"></button>
   </div>
 </div>
 
 <style>
-  /* Same CSS as before */
   @keyframes glow-border {
     0% {
       box-shadow: 0 0 5px red, 0 0 10px orange, 0 0 20px yellow, 0 0 30px green, 0 0 40px blue,
@@ -481,6 +458,7 @@
     animation: glow-border 2s infinite alternate;
     font-family: 'Arial', sans-serif;
     box-sizing: border-box;
+    position: relative;
   }
 
   .custom-dialog-title {
@@ -511,6 +489,8 @@
     font-weight: bold;
     box-shadow: 0 0 15px rgba(0, 247, 255, 0.6);
     transition: transform 0.3s;
+    width: 100%;
+    justify-content: center;
   }
 
   .custom-dialog-btn:hover {
@@ -521,35 +501,89 @@
     width: 24px;
     height: 24px;
   }
+
+  .custom-dialog-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: #00f7ff;
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .custom-dialog-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
 </style>
 
 <script>
-  // Step 1: Join Telegram button just changes steps, no link opening
-  document.getElementById('joinTelegramBtn').addEventListener('click', function () {
-    // No window.open here
-    document.getElementById('step1').style.display = 'none';
-    document.getElementById('step2').style.display = 'block';
+  // Function to open URL in external browser
+  function openInExternalBrowser(url) {
+    // Try to use Android's intent system if available
+    if (window.hasOwnProperty('webkit') && webkit.hasOwnProperty('messageHandlers')) {
+      // iOS - open in Safari
+      window.open(url, '_system');
+    } else if (typeof Android !== 'undefined' && Android.openExternalBrowser) {
+      // Android - use custom Java function
+      Android.openExternalBrowser(url);
+    } else {
+      // Fallback for other cases - try to force external browser
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      
+      // Additional fallback
+      setTimeout(() => {
+        window.open(url, '_system');
+      }, 100);
+    }
+  }
+
+  // Single click handler for Telegram button
+  document.getElementById('joinTelegramBtn').addEventListener('click', function() {
+    // Close dialog immediately
+    document.getElementById('promoDialog').style.display = 'none';
+    
+    // Open Telegram link in external browser
+    openInExternalBrowser('https://telegram.dog/EarningScripter1');
   });
 
-  // Copy username to clipboard
-  document.getElementById('copyBtn').addEventListener('click', function () {
-    const username = document.getElementById('usernameText').innerText;
-    navigator.clipboard.writeText(username).then(() => {
-      alert('Username copied to clipboard!');
-    });
-  });
-
-  // OK button step 2 to go step 3
-  document.getElementById('okBtnStep2').addEventListener('click', function () {
-    document.getElementById('step2').style.display = 'none';
-    document.getElementById('step3').style.display = 'block';
-  });
-
-  // Final Done button closes popup
-  document.getElementById('finalOkBtn').addEventListener('click', function () {
+  // Close button handler
+  document.getElementById('closeDialogBtn').addEventListener('click', function() {
     document.getElementById('promoDialog').style.display = 'none';
   });
+
+  // Prevent double/triple clicks
+  let isProcessing = false;
+  document.getElementById('joinTelegramBtn').addEventListener('click', function(e) {
+    if (isProcessing) {
+      e.preventDefault();
+      return;
+    }
+    isProcessing = true;
+    
+    // Close dialog immediately
+    document.getElementById('promoDialog').style.display = 'none';
+    
+    // Open Telegram link in external browser
+    openInExternalBrowser('https://telegram.dog/EarningScripter1');
+    
+    // Reset after a short delay
+    setTimeout(() => {
+      isProcessing = false;
+    }, 1000);
+  });
 </script>
-
-
 </html>
