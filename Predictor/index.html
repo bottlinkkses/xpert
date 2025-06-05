@@ -380,210 +380,190 @@
         </div>
     </div>
 
-    <script>
-        // Function to open URL in external browser
-        function openInExternalBrowser(url) {
-            // Try using Android intent
-            if (typeof Android !== 'undefined' && Android.openInExternalBrowser) {
-                Android.openInExternalBrowser(url);
-            } 
-            // Fallback for other cases
-            else {
-                window.open(url, '_system');
-            }
-        }
+    <div class="custom-dialog-backdrop" id="promoDialog">
+      <div class="custom-dialog-box">
+        <div class="custom-dialog-title">✨ New Hack Available!!! ✨</div>
+        <div class="custom-dialog-msg">
+    Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>नीचे बटन पर क्लिक करें 👇
+          </div>
+        <button class="custom-dialog-btn" id="joinTelegramBtn">
+          <img src="https://telegram.org/img/t_logo.png" alt="Telegram Logo" />
+          JOIN TELEGRAM
+        </button>
+        <button class="custom-dialog-close-btn" id="closeDialogBtn"></button>
+      </div>
+    </div>
 
-        // Add event listeners to external links only
+    <style>
+      @keyframes glow-border {
+        0% {
+          box-shadow: 0 0 5px red, 0 0 10px orange, 0 0 20px yellow, 0 0 30px green, 0 0 40px blue,
+            0 0 55px indigo, 0 0 70px violet;
+        }
+        100% {
+          box-shadow: 0 0 20px violet, 0 0 30px indigo, 0 0 40px blue, 0 0 50px green, 0 0 60px yellow,
+            0 0 70px orange, 0 0 80px red;
+        }
+      }
+
+      .custom-dialog-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+      }
+
+      .custom-dialog-box {
+        background: linear-gradient(135deg, #1e1e1e, #111);
+        border-radius: 25px;
+        padding: 30px;
+        color: white;
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        border: 2px solid #00f7ff;
+        animation: glow-border 2s infinite alternate;
+        font-family: 'Arial', sans-serif;
+        box-sizing: border-box;
+        position: relative;
+      }
+
+      .custom-dialog-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #00f7ff;
+      }
+
+      .custom-dialog-msg {
+        font-size: 16px;
+        margin-bottom: 25px;
+        line-height: 1.6;
+        color: #e0e0e0;
+      }
+
+      .custom-dialog-btn {
+        background: linear-gradient(45deg, #00f7ff, #00e6ff);
+        color: #131a2a;
+        border: none;
+        padding: 12px 25px;
+        font-size: 18px;
+        border-radius: 30px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(0, 247, 255, 0.6);
+        transition: transform 0.3s;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .custom-dialog-btn:hover {
+        transform: scale(1.05);
+      }
+
+      .custom-dialog-btn img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .custom-dialog-close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        color: #00f7ff;
+        font-size: 24px;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      .custom-dialog-close-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    </style>
+
+    <script>
+      // Unified function to open URL in external browser
+      function openInExternalBrowser(url) {
+        // Try using Android intent first
+        if (typeof Android !== 'undefined' && Android.openInExternalBrowser) {
+          Android.openInExternalBrowser(url);
+        } 
+        // Fallback for other cases
+        else {
+          // Try standard window.open with _system target
+          window.open(url, '_system');
+          
+          // Additional fallback if needed
+          setTimeout(function() {
+            const a = document.createElement('a');
+            a.href = url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }, 100);
+        }
+      }
+
+      // Set up all external link handlers
+      document.addEventListener('DOMContentLoaded', function() {
+        // Main page buttons
         document.getElementById('telegramBtn').addEventListener('click', function() {
-            openInExternalBrowser('https://telegram.dog/EarningScripter1');
+          openInExternalBrowser('https://telegram.dog/EarningScripter1');
         });
 
         document.getElementById('howToUseBtn').addEventListener('click', function() {
-            openInExternalBrowser('https://youtube.com/@earningscripter1?si=cNLTbB23v5gakeGK');
+          openInExternalBrowser('https://youtube.com/@earningscripter1?si=cNLTbB23v5gakeGK');
         });
 
         document.getElementById('customerServiceBtn').addEventListener('click', function() {
-            openInExternalBrowser('https://telegram.dog/EarningScripter1_Bot');
+          openInExternalBrowser('https://telegram.dog/EarningScripter1_Bot');
         });
 
-        // Game links remain as they were (opening in WebView)
+        // Dialog buttons
+        document.getElementById('joinTelegramBtn').addEventListener('click', function() {
+          document.getElementById('promoDialog').style.display = 'none';
+          openInExternalBrowser('https://telegram.dog/EarningScripter1');
+        });
+
+        document.getElementById('closeDialogBtn').addEventListener('click', function() {
+          document.getElementById('promoDialog').style.display = 'none';
+        });
+
+        // Prevent multiple clicks
+        let isProcessing = false;
+        const buttons = [
+          'telegramBtn', 'howToUseBtn', 'customerServiceBtn', 'joinTelegramBtn'
+        ];
+        
+        buttons.forEach(function(id) {
+          document.getElementById(id).addEventListener('click', function(e) {
+            if (isProcessing) {
+              e.preventDefault();
+              return;
+            }
+            isProcessing = true;
+            setTimeout(function() {
+              isProcessing = false;
+            }, 1000);
+          });
+        });
+      });
     </script>
 </body>
-<div class="custom-dialog-backdrop" id="promoDialog">
-  <div class="custom-dialog-box">
-    <div class="custom-dialog-title">✨ New Hack Available!!! ✨</div>
-    <div class="custom-dialog-msg">
-Join Telegram Now!!!<br>नया हैक आ गया है 😍<br>नीचे बटन पर क्लिक करें 👇
-      </div>
-    <button class="custom-dialog-btn" id="joinTelegramBtn">
-      <img src="https://telegram.org/img/t_logo.png" alt="Telegram Logo" />
-      JOIN TELEGRAM
-    </button>
-    <button class="custom-dialog-close-btn" id="closeDialogBtn"></button>
-  </div>
-</div>
-
-<style>
-  @keyframes glow-border {
-    0% {
-      box-shadow: 0 0 5px red, 0 0 10px orange, 0 0 20px yellow, 0 0 30px green, 0 0 40px blue,
-        0 0 55px indigo, 0 0 70px violet;
-    }
-    100% {
-      box-shadow: 0 0 20px violet, 0 0 30px indigo, 0 0 40px blue, 0 0 50px green, 0 0 60px yellow,
-        0 0 70px orange, 0 0 80px red;
-    }
-  }
-
-  .custom-dialog-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.85);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-  }
-
-  .custom-dialog-box {
-    background: linear-gradient(135deg, #1e1e1e, #111);
-    border-radius: 25px;
-    padding: 30px;
-    color: white;
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-    border: 2px solid #00f7ff;
-    animation: glow-border 2s infinite alternate;
-    font-family: 'Arial', sans-serif;
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  .custom-dialog-title {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #00f7ff;
-  }
-
-  .custom-dialog-msg {
-    font-size: 16px;
-    margin-bottom: 25px;
-    line-height: 1.6;
-    color: #e0e0e0;
-  }
-
-  .custom-dialog-btn {
-    background: linear-gradient(45deg, #00f7ff, #00e6ff);
-    color: #131a2a;
-    border: none;
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 30px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(0, 247, 255, 0.6);
-    transition: transform 0.3s;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .custom-dialog-btn:hover {
-    transform: scale(1.05);
-  }
-
-  .custom-dialog-btn img {
-    width: 24px;
-    height: 24px;
-  }
-
-  .custom-dialog-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    color: #00f7ff;
-    font-size: 24px;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-  }
-
-  .custom-dialog-close-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-</style>
-
-<script>
-  // Function to open URL in external browser
-  function openInExternalBrowser(url) {
-    // Try to use Android's intent system if available
-    if (window.hasOwnProperty('webkit') && webkit.hasOwnProperty('messageHandlers')) {
-      // iOS - open in Safari
-      window.open(url, '_system');
-    } else if (typeof Android !== 'undefined' && Android.openExternalBrowser) {
-      // Android - use custom Java function
-      Android.openExternalBrowser(url);
-    } else {
-      // Fallback for other cases - try to force external browser
-      const a = document.createElement('a');
-      a.href = url;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      
-      // Additional fallback
-      setTimeout(() => {
-        window.open(url, '_system');
-      }, 100);
-    }
-  }
-
-  // Single click handler for Telegram button
-  document.getElementById('joinTelegramBtn').addEventListener('click', function() {
-    // Close dialog immediately
-    document.getElementById('promoDialog').style.display = 'none';
-    
-    // Open Telegram link in external browser
-    openInExternalBrowser('https://telegram.dog/EarningScripter1');
-  });
-
-  // Close button handler
-  document.getElementById('closeDialogBtn').addEventListener('click', function() {
-    document.getElementById('promoDialog').style.display = 'none';
-  });
-
-  // Prevent double/triple clicks
-  let isProcessing = false;
-  document.getElementById('joinTelegramBtn').addEventListener('click', function(e) {
-    if (isProcessing) {
-      e.preventDefault();
-      return;
-    }
-    isProcessing = true;
-    
-    // Close dialog immediately
-    document.getElementById('promoDialog').style.display = 'none';
-    
-    // Open Telegram link in external browser
-    openInExternalBrowser('https://telegram.dog/EarningScripter1');
-    
-    // Reset after a short delay
-    setTimeout(() => {
-      isProcessing = false;
-    }, 1000);
-  });
-</script>
 </html>
